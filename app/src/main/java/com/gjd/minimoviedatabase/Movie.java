@@ -4,46 +4,38 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Class for Movie ojec creation
+ * Class for Movie object creation
  */
 public class Movie implements Parcelable {
     String title;
     String plot;
-    String posterpath;
+    String posterPath;
     String releaseDate;
-    double user_rating;
+    double userRating;
 
     public Movie(){}
-
-    public Movie(String title, String plot, String posterpath, String releaseDate, double user_rating){
-        this.title = title;
-        this.plot = plot;
-        this.posterpath = posterpath;
-        this.releaseDate = releaseDate;
-        this.user_rating = user_rating;
-    }
 
     private Movie(Parcel in){
         title = in.readString();
         plot = in.readString();
-        posterpath = in.readString();
+        posterPath = in.readString();
         releaseDate = in.readString();
-        user_rating = in.readDouble();
+        userRating = in.readDouble();
     }
     @Override
     public int describeContents() {
         return 0;
     }
 
-    public String toString() { return title + " -- " + plot + " -- " + posterpath + " -- " + releaseDate + " -- " +user_rating; }
+    public String toString() { return title + " -- " + plot + " -- " + posterPath + " -- " + releaseDate + " -- " +userRating; }
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(title);
         parcel.writeString(plot);
-        parcel.writeString(posterpath);
+        parcel.writeString(posterPath);
         parcel.writeString(releaseDate);
-        parcel.writeDouble(user_rating);
+        parcel.writeDouble(userRating);
     }
 
     public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {

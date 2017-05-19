@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import static com.gjd.minimoviedatabase.R.id.movie_poster;
+import static com.gjd.minimoviedatabase.R.string.release_date;
+
 /**
  * Fragment class for showing additional movie details.
  */
@@ -17,24 +20,31 @@ public class DetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //inflate ViewGroup
+
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
+
         //get movie data from parcel
         Bundle bundle = getActivity().getIntent().getExtras();
-        Movie movie = bundle.getParcelable("movie object");
+        Movie movie = bundle.getParcelable(getString(R.string.movie_object));
 
         //set values to various views in fragment
-        TextView title = (TextView) rootView.findViewById(R.id.movie_title);
-        title.setText(movie.title);
-        TextView release_date = (TextView) rootView.findViewById(R.id.movie_release_date);
-        release_date.setText("Release Date: " + movie.releaseDate);
-        TextView plot = (TextView) rootView.findViewById(R.id.movie_plot);
-        plot.setText("Overview: \n" + movie.plot);
-        TextView user_rating = (TextView) rootView.findViewById(R.id.movie_rating);
-        user_rating.setText("Average User Rating: " + Double.toString(movie.user_rating));
-        ImageView movie_poster = (ImageView) rootView.findViewById(R.id.movie_poster);
-        //asynchronous loading of image
-        Picasso.with(getContext()).load(movie.posterpath).into(movie_poster);
+        if (movie != null) {
+            getActivity().setTitle(movie.title);
+
+            TextView releaseDate = (TextView) rootView.findViewById(R.id.movie_release_date);
+            releaseDate.setText(getString(release_date) + "\n" + movie.releaseDate);
+
+            TextView plot = (TextView) rootView.findViewById(R.id.movie_plot);
+            plot.setText(getString(R.string.overview) + "\n\n" + movie.plot);
+
+            TextView user_rating = (TextView) rootView.findViewById(R.id.movie_rating);
+            user_rating.setText(getString(R.string.user_rating) + "\n" + Double.toString(movie.userRating));
+
+            //asynchronous loading of image
+            ImageView moviePoster = (ImageView) rootView.findViewById(movie_poster);
+            Picasso.with(getContext()).load(movie.posterPath).into(moviePoster);
+            moviePoster.setContentDescription(movie.title);
+        }
 
         return rootView;
     }
