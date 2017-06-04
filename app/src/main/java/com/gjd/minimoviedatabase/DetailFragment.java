@@ -1,6 +1,7 @@
 package com.gjd.minimoviedatabase;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,17 @@ import static com.gjd.minimoviedatabase.R.string.release_date;
  * Fragment class for showing additional movie details.
  */
 public class DetailFragment extends Fragment {
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        /*if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP){
+            getActivity().getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+            getActivity().getWindow().setAllowEnterTransitionOverlap(true);
+            getActivity().getWindow().setSharedElementEnterTransition(new ChangeImageTransform());
+        }*/
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

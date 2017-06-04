@@ -1,8 +1,11 @@
 package com.gjd.minimoviedatabase;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,8 @@ import java.util.List;
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MovieViewHolder> {
     private final Context mContext;
     private List<Movie> movieList;
+    //private Activity activity;
+
 
 
     ImageAdapter(Context context) {
@@ -46,10 +51,18 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MovieViewHol
 
         @Override
         public void onClick(View view) {
+
             Movie movie = movieList.get(getAdapterPosition());
             Intent intent = new Intent(mContext, DetailActivity.class)
                     .putExtra(mContext.getString(R.string.movie_object), movie);
-            mContext.startActivity(intent);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                poster.setTransitionName(mContext.getString(R.string.transition_image));
+                mContext.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) mContext,
+                        new Pair(poster, poster.getTransitionName())
+                ).toBundle());
+            }else {
+                mContext.startActivity(intent);
+            }
         }
     }
 
